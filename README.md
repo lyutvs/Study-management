@@ -1,6 +1,6 @@
 # [토이 프로젝트] STUDY_LOG
 
-기능 👍
+## 기능 👍
 * Rest API 기반 블로그
 
 * 기본 게시판 구현 (summer note 에디터 적용)
