@@ -10,4 +10,6 @@ public interface UserJoinService {
 
     void deleteUser(Map<String, Object> param) throws Exception;
 
+    Object selectUserNameCehck(Map<String, Object> param) throws Exception;
+
 }
