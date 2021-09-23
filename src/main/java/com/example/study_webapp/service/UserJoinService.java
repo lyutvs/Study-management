@@ -6,4 +6,6 @@ public interface UserJoinService {
 
     Object insertUser(Map<String, Object> param) throws Exception;
 
+    void updateUser(Map<String, Object> param) throws Exception;
+
 }
