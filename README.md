@@ -1,4 +1,4 @@
-# [토이 프로젝트] STUDY_LOG
+# [프로젝트] STUDY_LOG
 
 ## 기능 👍
 * Rest API 기반 블로그
