@@ -102,6 +102,10 @@ dependencies {
     // mysql
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
 
+    // mongodb
+    implementation group: 'org.springframework.data', name: 'spring-data-mongodb', version: '3.2.2'
+    implementation group: 'org.mongodb', name: 'mongo-java-driver', version: '3.12.10'
+
     // titles
     implementation group: 'org.apache.tiles', name: 'tiles-jsp', version: '2.2.2'
     implementation group: 'org.apache.tiles', name: 'tiles-core', version: '2.2.2'
