@@ -4,6 +4,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 @Repository("commonDao")
 public class CommonDao {
 
@@ -27,4 +29,11 @@ public class CommonDao {
         //printQueryId(queryId);
         return sqlSession.delete(queryId, params);
     }
+
+    public Map selectOne(String queryId){
+        //printQueryId(queryId);
+        return sqlSession.selectOne(queryId);
+    }
+
+
 }
