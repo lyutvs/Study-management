@@ -18,4 +18,10 @@ public class CommonDao {
         return sqlSession.insert(queryId, params);
     }
 
+    public Object update(String queryId, Object params){
+        //printQueryId(queryId);
+        return sqlSession.update(queryId, params);
+    }
+    
+
 }
