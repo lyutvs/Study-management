@@ -45,6 +45,9 @@ public class CommonDao {
         return sqlSession.selectOne(queryId, params);
     }
 
-
+    public Object selectOptional(String queryId, Object params){
+        //printQueryId(queryId);
+        return sqlSession.selectOne(queryId, params);
+    }
 
 }
