@@ -34,5 +34,10 @@ public class UserJoinController {
         return mv;
     }
 
+    @RequestMapping(value = "/join/usercheck", method = RequestMethod.POST)
+    @ResponseBody
+    public Object selectUserNameCheck(@RequestParam Map<String,Object>param) throws Exception {
 
+        return joinService.selectUserNameCehck(param);
+    }
 }
