@@ -4,6 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 @Repository("commonDao")
@@ -48,6 +49,18 @@ public class CommonDao {
     public Object selectOptional(String queryId, Object params){
         //printQueryId(queryId);
         return sqlSession.selectOne(queryId, params);
+    }
+
+    @SuppressWarnings("rawtypes")
+    public List selectList(String queryId){
+        //printQueryId(queryId);
+        return sqlSession.selectList(queryId);
+    }
+
+    @SuppressWarnings("rawtypes")
+    public List selectList(String queryId, Object params){
+        //printQueryId(queryId);
+        return sqlSession.selectList(queryId,params);
     }
 
 }
