@@ -1,8 +1,9 @@
-package com.example.study_webapp.service;
+package com.example.study_webapp.service.user;
 
 import java.util.Map;
 
-public interface UserJoinService {
+public interface
+UserJoinService {
 
     Object insertUser(Map<String, Object> param) throws Exception;
 

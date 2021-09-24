@@ -1,10 +1,10 @@
-package com.example.study_webapp.service;
+package com.example.study_webapp.service.user;
 
 import java.util.Map;
 
 import com.example.study_webapp.dao.CommonDao;
+import com.example.study_webapp.service.user.UserJoinService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
