@@ -25,5 +25,14 @@ public class UserJoinController {
         return mv;
     }
 
+    @RequestMapping(value = "/join", method = {RequestMethod.POST,RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+    public ModelAndView loginJoin(@RequestBody  Map<String,Object> param) throws Exception {
+
+        ModelAndView mv = new ModelAndView("userlogin");
+        joinService.insertUser(param);
+
+        return mv;
+    }
+
 
 }
