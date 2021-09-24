@@ -1,11 +1,12 @@
 package com.example.study_webapp.service;
 
+import java.util.Map;
+
 import com.example.study_webapp.dao.CommonDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service("UserJoinService")
 public class UserJoinServiceImpl implements UserJoinService {
@@ -14,7 +15,7 @@ public class UserJoinServiceImpl implements UserJoinService {
     private CommonDao commonDao;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Object insertUser(Map<String, Object> param) throws Exception {
@@ -28,16 +29,19 @@ public class UserJoinServiceImpl implements UserJoinService {
 
     @Override
     public void updateUser(Map<String, Object> param) throws Exception {
+        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void deleteUser(Map<String, Object> param) throws Exception {
+        // TODO Auto-generated method stub
 
     }
 
     @Override
     public Object selectUserNameCehck(Map<String, Object> param) throws Exception {
-        return null;
+        param.put("USE", commonDao.selectCount("user.selectUserNameCehck", param));
+        return param;
     }
 }
