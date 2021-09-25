@@ -51,6 +51,8 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public void updateBoard(Map<String, Object> param) throws Exception {
 
+        commonDao.update("board.updateBoard",param);
+
     }
 
     @Override
