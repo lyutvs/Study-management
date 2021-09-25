@@ -57,6 +57,7 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public void deleteBoard(Map<String, Object> param) throws Exception {
+        commonDao.delete("board.deleteBoard",param);
 
     }
 
