@@ -83,6 +83,6 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public List<Map<String, Object>> selectCategory() throws Exception {
-        return null;
+        return commonDao.selectList("board.selectCategory");
     }
 }
