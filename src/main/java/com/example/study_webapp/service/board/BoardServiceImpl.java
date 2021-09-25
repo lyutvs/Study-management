@@ -37,11 +37,14 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public Integer insertBoard(Map<String, Object> param) throws Exception {
-        return null;
+
+        return (int)commonDao.insert("board.insertBoard",param);
     }
 
     @Override
     public void updateCount(Map<String, Object> param) throws Exception {
+
+        commonDao.update("board.updateCount",param);
 
     }
 
