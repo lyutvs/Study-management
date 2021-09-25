@@ -61,9 +61,11 @@ public class BoardServiceImpl implements BoardService{
 
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Map<String, Object> selectMaxIdx() throws Exception {
-        return null;
+        return commonDao.selectOne("board.selectMaxIdx");
+
     }
 
     @Override
