@@ -74,9 +74,11 @@ public class BoardServiceImpl implements BoardService{
         return commonDao.selectList("board.selectBoard", param);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Map<String, Object>> selectLastComment() throws Exception {
-        return null;
+        return commonDao.selectList("board.selectLastComment");
+
     }
 
     @Override
