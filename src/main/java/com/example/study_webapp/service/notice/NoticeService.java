@@ -9,4 +9,6 @@ public interface NoticeService {
 
     Map<String,Object> selectDetail(Map<String, Object> param) throws Exception;
 
+    Object insertBoard(Map<String, Object> param) throws Exception;
+
 }
