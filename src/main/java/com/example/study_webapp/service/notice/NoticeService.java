@@ -17,5 +17,6 @@ public interface NoticeService {
 
     void deleteBoard(Map<String, Object> param) throws Exception;
 
+    Map<String, Object> selectMaxIdx()throws Exception;
 
 }
