@@ -15,6 +15,6 @@ public interface HashtagService {
 
     HashSet<String> selectAllHashTag() throws Exception;
 
-
+    void deleteHashTag(Map<String, Object> param)  throws Exception;
 
 }
