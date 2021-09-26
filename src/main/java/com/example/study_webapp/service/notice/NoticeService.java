@@ -1,6 +1,5 @@
 package com.example.study_webapp.service.notice;
 
-import java.lang.reflect.Executable;
 import java.util.List;
 import java.util.Map;
 
@@ -15,5 +14,8 @@ public interface NoticeService {
     void updateCount(Map<String, Object> param) throws Exception;
 
     void updateBoard(Map<String, Object> param) throws Exception;
+
+    void deleteBoard(Map<String, Object> param) throws Exception;
+
 
 }
