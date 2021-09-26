@@ -8,7 +8,8 @@ public interface HashTagService {
 
     Map<String, Object> selectOneHashTag(Map<String, Object> param) throws Exception;
 
-    
+    void updateHashTag(Map<String, Object> param) throws Exception;
+
 
 
 }
