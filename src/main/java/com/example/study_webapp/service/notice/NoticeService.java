@@ -11,4 +11,6 @@ public interface NoticeService {
 
     Object insertBoard(Map<String, Object> param) throws Exception;
 
+    void updateCount(Map<String, Object> param) throws Exception;
+
 }
