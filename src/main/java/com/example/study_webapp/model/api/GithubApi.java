@@ -1,79 +1,81 @@
 package com.example.study_webapp.model.api;
 
-import java.util.Comparator;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.function.ToDoubleFunction;
-import java.util.function.ToIntFunction;
-import java.util.function.ToLongFunction;
+import org.kohsuke.github.*;
+
+import java.io.IOException;
+import java.util.*;
 
 public class GithubApi implements Comparator<Map<String,Object>> {
-    @Override
-    public int compare(Map<String, Object> o1, Map<String, Object> o2) {
-        return 0;
+
+    public List<Map<String,Object>> getIssueRecentComments(String token, String repoName) throws IOException {
+
+        GitHub gitHub = new GitHubBuilder().withOAuthToken(token).build();
+        gitHub.checkApiUrlValidity();
+
+        GHRepository repo = gitHub.getRepository(repoName);
+        List<GHIssue> issues = repo.getIssues(GHIssueState.ALL);
+
+
+        List<GHIssueComment> allComments = new ArrayList();
+        List<String> boardIdx = new ArrayList<>();
+
+
+        for (GHIssue issue : issues) {
+            //사이트에서 단 댓글만 골라 가져오기(label = comments 로 지정함)
+            if (issue.getLabels()
+                    .stream()
+                    .anyMatch(label -> label.getName().equals("comments"))) {
+
+                //코멘트
+                for (int i = 0; i < issue.getCommentsCount(); i++) {
+                    String title = issue.getTitle();
+
+                    boardIdx.add(title);
+                    allComments.add(issue.getComments().get(i));
+                }
+            }
+        }
+
+        List<Map<String, Object>> recent = new ArrayList<Map<String, Object>>();
+
+        //GHIssueComment 객체에서 필요한 데이터만 map에 담음
+        for (int i = 0; i < allComments.size(); i++) {
+            Map<String, Object> map = new HashMap<>();
+
+            GHIssueComment gc = allComments.get(i);
+
+            map.put("idx", boardIdx.get(i));
+            map.put("update", gc.getUpdatedAt());
+            map.put("comment", gc.getBody());
+            map.put("userName", gc.getUser().getLogin());
+            map.put("imgUrl", gc.getUser().getAvatarUrl());
+
+            recent.add(map);
+        }
+
+        //날짜 순으로 정렬(역정렬)
+        Collections.sort(recent, new GithubApi());
+
+        //최대 5개만
+        return recent.subList(0, recent.size() == 5 ? 5 : recent.size());
+
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public int compare(Map<String, Object> a, Map<String, Object> b) {
+
+        Date prev = (Date) a.get("update");
+        Date next = (Date) b.get("update");
+
+        if(prev.compareTo(next) == 1){
+            return -1;
+        }else if(prev.compareTo(next) == -1){
+            return 1;
+        }else{
+            return 0;
+        }
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    public GithubApi() {
-        super();
-    }
-
-    @Override
-    public Comparator<Map<String, Object>> thenComparingDouble(ToDoubleFunction<? super Map<String, Object>> keyExtractor) {
-        return Comparator.super.thenComparingDouble(keyExtractor);
-    }
-
-    @Override
-    public Comparator<Map<String, Object>> thenComparingLong(ToLongFunction<? super Map<String, Object>> keyExtractor) {
-        return Comparator.super.thenComparingLong(keyExtractor);
-    }
-
-    @Override
-    public Comparator<Map<String, Object>> thenComparingInt(ToIntFunction<? super Map<String, Object>> keyExtractor) {
-        return Comparator.super.thenComparingInt(keyExtractor);
-    }
-
-    @Override
-    public <U extends Comparable<? super U>> Comparator<Map<String, Object>> thenComparing(Function<? super Map<String, Object>, ? extends U> keyExtractor) {
-        return Comparator.super.thenComparing(keyExtractor);
-    }
-
-    @Override
-    public <U> Comparator<Map<String, Object>> thenComparing(Function<? super Map<String, Object>, ? extends U> keyExtractor, Comparator<? super U> keyComparator) {
-        return Comparator.super.thenComparing(keyExtractor, keyComparator);
-    }
-
-    @Override
-    public Comparator<Map<String, Object>> thenComparing(Comparator<? super Map<String, Object>> other) {
-        return Comparator.super.thenComparing(other);
-    }
-
-    @Override
-    public Comparator<Map<String, Object>> reversed() {
-        return Comparator.super.reversed();
-    }
 }
