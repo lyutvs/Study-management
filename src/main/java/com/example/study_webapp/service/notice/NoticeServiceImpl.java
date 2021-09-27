@@ -1,5 +1,8 @@
 package com.example.study_webapp.service.notice;
 
+import com.example.study_webapp.dao.CommonDao;
+import com.example.study_webapp.model.util.PagingUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -7,10 +10,24 @@ import java.util.Map;
 
 @Service("NoticeService")
 public class NoticeServiceImpl implements NoticeService{
-    
+
+    @Autowired
+    private CommonDao commonDao;
+
+    @SuppressWarnings("unchecked")
     @Override
     public List<Map<String, Object>> selectBoard(Map<String, Object> param) throws Exception {
-        return null;
+        PagingUtil paging = new PagingUtil();
+        int index = 1;
+        if(param.containsKey("pageIndex")) {
+            index = Integer.parseInt(param.get("pageIndex").toString());
+            paging.setPageIndex(index);
+
+        }
+        paging.countPaging(index, 5);
+        param.put("page",paging);
+
+        return commonDao.selectList("notice.selectBoard", param);
     }
 
     @Override
