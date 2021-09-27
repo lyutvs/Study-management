@@ -32,7 +32,8 @@ public class NoticeServiceImpl implements NoticeService{
 
     @Override
     public Map<String, Object> selectDetail(Map<String, Object> param) throws Exception {
-        return null;
+
+        return commonDao.selectOne("notice.detailBoard",param);
     }
 
     @Override
