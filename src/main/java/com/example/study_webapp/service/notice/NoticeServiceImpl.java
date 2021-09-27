@@ -38,36 +38,43 @@ public class NoticeServiceImpl implements NoticeService{
 
     @Override
     public Object insertBoard(Map<String, Object> param) throws Exception {
-        return null;
+
+        return commonDao.insert("notice.insertBoard",param);
     }
 
     @Override
     public void updateCount(Map<String, Object> param) throws Exception {
-
+        commonDao.update("notice.updateCount",param);
     }
 
     @Override
     public void updateBoard(Map<String, Object> param) throws Exception {
-
+        commonDao.update("notice.updateBoard",param);
     }
 
     @Override
     public void deleteBoard(Map<String, Object> param) throws Exception {
-
+        commonDao.delete("notice.deleteBoard", param);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Map<String, Object> selectMaxIdx() throws Exception {
-        return null;
+    public  Map<String, Object> selectMaxIdx() throws Exception {
+        return commonDao.selectOne("notice.selectMaxIdx");
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Map<String, Object>> serchBoard(Map<String, Object> param) throws Exception {
-        return null;
+        return commonDao.selectList("notice.selectBoard", param);
     }
+
 
     @Override
     public Map<String, Object> selectCount(Map<String, Object> param) throws Exception {
-        return null;
+        return commonDao.selectOne("notice.selectCount", param);
     }
+
+
+
 }
