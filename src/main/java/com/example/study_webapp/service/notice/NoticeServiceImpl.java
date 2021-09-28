@@ -22,7 +22,7 @@ public class NoticeServiceImpl implements NoticeService{
         if(param.containsKey("pageIndex")) {
             index = Integer.parseInt(param.get("pageIndex").toString());
             paging.setPageIndex(index);
-
+    
         }
         paging.countPaging(index, 5);
         param.put("page",paging);
