@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-public class FileUploadService {
+public class FileUploadUtil {
 
     private static final String filePath = "C://Study management//upload"; // 파일이 저장될 위치
 
