@@ -165,29 +165,10 @@ public class NoticeController {
     @RequestMapping(value="/notice/update", method = RequestMethod.POST)
     @ResponseBody
     public String updateBoard(HttpServletRequest request, @RequestParam Map<String,Object>param) throws Exception {
-
-        ModelAndView mv = new ModelAndView("board/boardVw.tiles");
-
-        param.put("IDX", idx);
-        mv.addObject("data", noticeService.selectDetail(param));
-
-        //파일 obj
-        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-        list = fileUploadService.selectAttachFileListByIDX(param);
-        if(!list.isEmpty() || list != null ) {
-            mv.addObject("files", list);
-        }
-
-        //해시태그 obj
-        Map<String,Object> tag = hashtagService.selectOneHashTag(param);
-        String[] tagArray = ((String) tag.get("CONTENTS")).split(",");
-        mv.addObject("hash", tagArray);
-
-        noticeService.updateCount(param);
-        mv.addObject("param", param);
-
-        return mv;
-
+        noticeService.updateBoard(param);
+        hashtagService.updateHashTag(param);
+        String idx = (String) param.get("IDX");
+        return idx;
     }
 
 }
