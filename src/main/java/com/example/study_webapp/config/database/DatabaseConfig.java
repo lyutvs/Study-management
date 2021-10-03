@@ -53,6 +53,10 @@ public class DatabaseConfig {
         return sqlSessionFactoryBean.getObject();
     }
 
-
+    @Bean
+    public SqlSessionTemplate sqlSessionTemplate() throws Exception {
+        SqlSessionTemplate sqlSession = new SqlSessionTemplate(sqlSession());
+        return sqlSession;
+    }
 
 }
