@@ -4,6 +4,8 @@ import com.example.study_webapp.service.board.BoardService;
 import com.example.study_webapp.service.file.FileUploadService;
 import com.example.study_webapp.service.hashtag.HashtagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -58,6 +60,23 @@ public class BoardController {
         boardService.updateCount(param);
         return mv;
     }
+
+    /*
+     * 어디에 적을 것인지
+     * */
+    @RequestMapping(value="/board/edit", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('USER')")
+    public ModelAndView writeForm(Authentication authentication, @RequestParam Map<String,Object>param) throws Exception {
+        ModelAndView mv = new ModelAndView("board/boardEd.tiles");
+
+        mv.addObject("list", boardService.selectBoard(param));
+        mv.addObject("category", boardService.selectCategory());
+        mv.addObject("username", authentication.getPrincipal().toString());
+
+        mv.addObject("mode", "new");
+        return mv;
+    }
+
 
 
 }
