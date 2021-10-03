@@ -1,10 +1,13 @@
 package com.example.study_webapp.config.swagger;
 
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
+import org.springframework.web.servlet.view.tiles3.TilesView;
 
 @EnableWebMvc
 @ComponentScan(basePackages= {"com.example.study_management"})
@@ -18,5 +21,12 @@ public class ServletConfig implements WebMvcConfigurer {
 
     }
 
+    @Bean
+    public UrlBasedViewResolver tilesViewResolver() {
+        UrlBasedViewResolver urlBasedViewResolver = new UrlBasedViewResolver();
+        urlBasedViewResolver.setViewClass(TilesView.class);
+        urlBasedViewResolver.setOrder(1);
+        return urlBasedViewResolver;
+    }
 
 }
