@@ -102,7 +102,7 @@ public class BoardController {
 
     /*
      * 해시테크 수정
-    
+
      * */
     @RequestMapping(value="/board/modify/{idx}", method = RequestMethod.GET)
     @PreAuthorize("hasRole('USER')")
@@ -147,6 +147,30 @@ public class BoardController {
         mv.addObject("mode", "modify");
 
         return mv;
+    }
+
+    /*
+     * 카테고리 넣기
+     * */
+    @RequestMapping(value="/board/update", method = RequestMethod.POST)
+    @ResponseBody
+    @PreAuthorize("hasRole('USER')")
+    public String updateBoard(HttpServletRequest request, @RequestParam Map<String,Object>param) throws Exception {
+
+        hashtagService.deleteHashTag(param);
+        //if(param.get("HASHTAG") != "") {
+        if(param.get("HASHTAG") != null || param.get("HASHTAG") != "") {
+            hashtagService.insertHashTag(param);
+        }
+
+        //카테고리 넣기(신규일시)
+        if(param.get("CATEGORY_TYPE").toString().equals("NEW")){
+            param.put("PARENT_IDX", insertCategory(param).get("PARENT_IDX"));
+        }
+        boardService.updateBoard(param);
+
+        String idx = (String) param.get("IDX");
+        return idx;
     }
 
     public Map<String,Object> insertCategory(Map<String,Object>param) throws Exception {
