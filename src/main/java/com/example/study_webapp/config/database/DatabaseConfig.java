@@ -42,4 +42,17 @@ public class DatabaseConfig {
         return source;
     }
 
+
+    @Bean
+    public SqlSessionFactory sqlSession() throws Exception {
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSource());
+        sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:config/context-mybatis.xml"));
+        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath*:*mapper*/**/*.xml"));
+
+        return sqlSessionFactoryBean.getObject();
+    }
+
+
+
 }
