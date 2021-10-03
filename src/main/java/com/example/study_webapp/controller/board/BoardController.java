@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -77,6 +78,41 @@ public class BoardController {
         return mv;
     }
 
+    /*
+     * 카테고리 삽입
+     * */
+    @RequestMapping(value="/board/insert", method = RequestMethod.POST)
+    @ResponseBody
+    @PreAuthorize("hasRole('USER')")
+    public String insertBoard(HttpServletRequest request, @RequestParam Map<String,Object>param) throws Exception {
+
+        //카테고리 넣기
+        param.put("PARENT_IDX", insertCategory(param).get("PARENT_IDX"));
+
+        boardService.insertBoard(param);
+        Map<String,Object> map =  boardService.selectMaxIdx();
+        int idx = (int) map.get("IDX");
+        //param.put("IDX",idx);
+
+        if(param.get("HASHTAG") != null && param.get("HASHTAG") != "") {
+            hashtagService.insertHashTag(param);
+        }
+        return request.getContextPath()+"/board/"+ idx;
+    }
+
+    public Map<String,Object> insertCategory(Map<String,Object>param) throws Exception {
+        Map<String,Object>category = new HashMap<>();
+
+        if(param.get("CATEGORY_TYPE").toString().equals("NEW")){
+            category.put("TITLE", param.get("CATEGORY"));
+            category.put("CREATE_ID", param.get("CREATE_ID"));
+            boardService.insertBoard(category);
+            category.put("PARENT_IDX", category.get("IDX"));
+        }else{
+            category.put("PARENT_IDX", param.get("PARENT_IDX"));
+        }
+        return category;
+    }
 
 
 }
