@@ -100,6 +100,55 @@ public class BoardController {
         return request.getContextPath()+"/board/"+ idx;
     }
 
+    /*
+     * 해시테크 수정
+    
+     * */
+    @RequestMapping(value="/board/modify/{idx}", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('USER')")
+    public ModelAndView modifyForm(Authentication authentication, HttpServletRequest request, @PathVariable int idx) throws Exception {
+        ModelAndView mv = new ModelAndView("board/boardEd.tiles");
+        Map<String,Object>param = new HashMap<String,Object>();
+
+        mv.addObject("list", boardService.selectBoard(param));
+        mv.addObject("category", boardService.selectCategory());
+        mv.addObject("username", authentication.getPrincipal().toString());
+
+        param.put("IDX", idx);
+
+        List<Map<String, Object>> files = null;
+        files = fileuploadService.selectAttachFileListByIDX(param);
+        // "false".equals(files.isEmpty()) || (Integer)files.get(0).get("FILE_GROUP") > 0
+        if(!files.isEmpty()) {
+
+            int FILE_GROUP = (Integer) files.get(0).get("FILE_GROUP");
+            if (FILE_GROUP > 0) {
+                mv.addObject("FILE_GROUP",FILE_GROUP);
+                mv.addObject("files", files);
+            }
+        }
+
+
+        //해시태그 obj
+        String[] arr = null;
+        String hasnStr = "";
+        Map<String,Object> hash = hashtagService.selectOneHashTag(param);
+
+        if(hash != null) {
+            if(hash.size() > 0) {
+                hasnStr = (String)hash.get("CONTENTS");
+                arr = ((String) hash.get("CONTENTS")).split(",");
+                mv.addObject("hash", arr);
+                mv.addObject("HASHTAG",hasnStr);
+            }
+        }
+
+        mv.addObject("data", boardService.selectDetail(param));
+        mv.addObject("mode", "modify");
+
+        return mv;
+    }
+
     public Map<String,Object> insertCategory(Map<String,Object>param) throws Exception {
         Map<String,Object>category = new HashMap<>();
 
