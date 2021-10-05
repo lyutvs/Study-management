@@ -1,2 +1,79 @@
-package com.example.study_webapp.model.auth;public class AppUser {
+package com.example.study_webapp.model.auth;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.Set;
+
+public class AppUser implements UserDetails {
+
+    private Set<SimpleGrantedAuthority> grantedAuthorityList;
+    private String username;
+    private String password;
+    private boolean isAccountNonExpired;
+    private boolean isAccountNonLocked;
+    private boolean isCredentialNonExpired;
+    private boolean isEnabled;
+
+    private AppUser(){
+    }; //디폴트 생성자
+
+    public AppUser createInstance(
+            String username,
+            String password,
+            Set<SimpleGrantedAuthority> grantedAuthorityList,
+            boolean isAccountNonExpired,
+            boolean isAccountNonLocked,
+            boolean isCredentialNonExpired,
+            boolean isEnabled) {
+
+        AppUser appUser = new AppUser();
+
+        appUser.grantedAuthorityList = grantedAuthorityList;
+        appUser.username = username;
+        appUser.password = password;
+        appUser.isAccountNonExpired = isAccountNonExpired;
+        appUser.isAccountNonLocked = isAccountNonLocked;
+        appUser.isCredentialNonExpired = isCredentialNonExpired;
+        appUser.isEnabled = isEnabled;
+
+        return appUser;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }
