@@ -1,4 +1,4 @@
-package com.example.study_webapp.model.security;
+package com.example.study_webapp.config.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
