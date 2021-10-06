@@ -73,7 +73,7 @@ public class GithupApi implements Comparator<Map<String, Object>> {
         } else if (prev.compareTo(next) == -1) {
             return 1;
         } else {
-            return 0;   
+            return 0;
         }
     }
 }
